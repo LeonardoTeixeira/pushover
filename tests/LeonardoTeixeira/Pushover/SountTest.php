@@ -9,7 +9,7 @@ class SountTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->sounds = array(
+        $this->sounds = [
             'pushover',
             'bike',
             'bugle',
@@ -32,7 +32,7 @@ class SountTest extends \PHPUnit_Framework_TestCase
             'echo',
             'updown',
             'none'
-        );
+        ];
     }
 
     public function testContainsAllSounds()

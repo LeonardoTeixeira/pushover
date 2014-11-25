@@ -29,7 +29,7 @@ class Sound
 
     public static function getAllSounds()
     {
-        return array(
+        return [
             self::PUSHOVER,
             self::BIKE,
             self::BUGLE,
@@ -52,6 +52,6 @@ class Sound
             self::ECHOO,
             self::UPDOWN,
             self::NONE
-        );
+        ];
     }
 }

@@ -11,11 +11,11 @@ class Priority
 
     public static function getAllPriorities()
     {
-        return array(
+        return [
             self::LOWEST,
             self::LOW,
             self::NORMAL,
             self::HIGH
-        );
+        ];
     }
 }
