@@ -6,7 +6,7 @@
 
 A simple PHP library for the [Pushover](https://pushover.net) service.
 
-This library uses the [Guzzle](https://github.com/guzzle/guzzle) project and was written using the [PSR-4](http://www.php-fig.org/psr/psr-4/) standards.
+This library was written using the [PSR-4](http://www.php-fig.org/psr/psr-4/) standards.
 
 ## Installation
 

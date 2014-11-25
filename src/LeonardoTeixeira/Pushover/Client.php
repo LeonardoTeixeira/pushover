@@ -3,7 +3,7 @@
 namespace LeonardoTeixeira\Pushover;
 
 use LeonardoTeixeira\Pushover\Exceptions\PushoverException;
-use GuzzleHttp\Client as GuzzleClient;
+use Requests;
 
 class Client
 {
@@ -43,51 +43,48 @@ class Client
         if (! $message instanceof Message) {
             throw new PushoverException('The parameter \'$message\' must be a Message instance.');
         }
-        
+
         if ($message->getMessage() == null) {
             throw new PushoverException('The message content was not set.');
         }
-        
-        $postData = array(
+
+        $postData = [
             'user' => $this->user,
             'token' => $this->token,
             'message' => $message->getMessage(),
             'priority' => $message->getPriority()
-        );
-        
+        ];
+
         if ($device != null) {
             $postData['device'] = $device;
         }
-        
+
         if ($message->hasTitle()) {
             $postData['title'] = $message->getTitle();
         }
-        
+
         if ($message->hasUrl()) {
             $postData['url'] = $message->getUrl();
         }
-        
+
         if ($message->hasUrlTitle()) {
             $postData['url_title'] = $message->getUrlTitle();
         }
-        
+
         if ($message->hasSound()) {
             $postData['sound'] = $message->getSound();
         }
-        
+
         if ($message->hasDate()) {
             $postData['timestamp'] = $message->getDate()->getTimestamp();
         }
         try {
-            $client = new GuzzleClient();
-            $response = $client->post(self::API_MESSAGE_URL, array(
-                'body' => $postData
-            ));
-            $responseJson = $response->json();
-            
-            if (!isset($responseJson['status']) || $responseJson['status'] != 1) {
-                if (isset($responseJson['errors'])) {
-                    throw new PushoverException($responseJson['errors'][0]);
+            $request = Requests::post(self::API_MESSAGE_URL, [], $postData);
+            $responseJson = json_decode($request->body);
+
+            if (!isset($responseJson->status) || $responseJson->status != 1) {
+                if (isset($responseJson->errors)) {
+                    throw new PushoverException($responseJson->errors[0]);
                 } else {
                     throw new PushoverException('Unable to access the Pushover API.');
                 }
