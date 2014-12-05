@@ -1,8 +1,8 @@
 # Pushover for PHP
 
-[![Build Status](https://travis-ci.org/LeonardoTeixeira/pushover.svg?branch=master)](https://travis-ci.org/LeonardoTeixeira/pushover)
-[![Total Downloads](https://poser.pugx.org/leonardoteixeira/pushover/downloads.svg)](https://packagist.org/packages/leonardoteixeira/pushover)
-[![License](https://poser.pugx.org/leonardoteixeira/pushover/license.svg)](https://packagist.org/packages/leonardoteixeira/pushover)
+[![Build Status](https://img.shields.io/travis/LeonardoTeixeira/pushover.svg?style=flat)](https://travis-ci.org/LeonardoTeixeira/pushover)
+[![Total Downloads](https://img.shields.io/packagist/dt/leonardoteixeira/pushover.svg?style=flat)](https://packagist.org/packages/leonardoteixeira/pushover)
+[![License](https://img.shields.io/packagist/l/leonardoteixeira/pushover.svg?style=flat)](https://packagist.org/packages/leonardoteixeira/pushover)
 
 A simple PHP library for the [Pushover](https://pushover.net) service.
 
