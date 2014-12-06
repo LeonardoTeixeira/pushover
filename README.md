@@ -52,10 +52,10 @@ try {
     echo 'ERROR: ', $e->getMessage(), PHP_EOL;
 }
 ```
-You also can pass a title and device on constructor:
+You also can pass a title and the priority on constructor:
 
 ```php
-$message = new Message('Your message here.', 'Title here', 'device_id');
+$message = new Message('Your message here.', 'Title here', Priority::HIGH);
 ```
 ### Complete Example
 
