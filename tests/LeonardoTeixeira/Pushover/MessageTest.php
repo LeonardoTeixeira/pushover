@@ -2,8 +2,6 @@
 
 namespace LeonardoTeixeira\Pushover;
 
-use LeonardoTeixeira\Pushover\Exceptions\InvalidArgumentException;
-
 class MessageTest extends \PHPUnit_Framework_TestCase
 {
     private $messages;
@@ -101,7 +99,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException LeonardoTeixeira\Pushover\Exceptions\InvalidArgumentException
      */
     public function testInvalidArgumentExceptionFromPriority()
     {
@@ -110,7 +108,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException LeonardoTeixeira\Pushover\Exceptions\InvalidArgumentException
      */
     public function testInvalidArgumentExceptionFromSound()
     {
