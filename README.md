@@ -1,6 +1,7 @@
 # Pushover for PHP
 
 [![Build Status](https://img.shields.io/travis/LeonardoTeixeira/pushover.svg?style=flat)](https://travis-ci.org/LeonardoTeixeira/pushover)
+[![Version](https://img.shields.io/packagist/v/leonardoteixeira/pushover.svg?style=flat)](https://packagist.org/packages/leonardoteixeira/pushover)
 [![Total Downloads](https://img.shields.io/packagist/dt/leonardoteixeira/pushover.svg?style=flat)](https://packagist.org/packages/leonardoteixeira/pushover)
 [![License](https://img.shields.io/packagist/l/leonardoteixeira/pushover.svg?style=flat)](https://packagist.org/packages/leonardoteixeira/pushover)
 
