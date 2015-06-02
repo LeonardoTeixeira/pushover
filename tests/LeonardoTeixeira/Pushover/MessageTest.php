@@ -2,6 +2,8 @@
 
 namespace LeonardoTeixeira\Pushover;
 
+use LeonardoTeixeira\Pushover\Exceptions\InvalidArgumentException;
+
 class MessageTest extends \PHPUnit_Framework_TestCase
 {
     private $messages;
@@ -96,5 +98,23 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($m->hasSound());
             $this->assertTrue($m->hasDate());
         }
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testInvalidArgumentExceptionFromPriority()
+    {
+      $m = new Message();
+      $m->setPriority(-5);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testInvalidArgumentExceptionFromSound()
+    {
+      $m = new Message();
+      $m->setSound('invalid_sound');
     }
 }

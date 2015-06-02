@@ -54,4 +54,12 @@ class Sound
             self::NONE
         ];
     }
+
+    public static function has($sound)
+    {
+      if (in_array($sound, self::getAllSounds())) {
+        return true;
+      }
+      return false;
+    }
 }

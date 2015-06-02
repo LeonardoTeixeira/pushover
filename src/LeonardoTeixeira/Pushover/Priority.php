@@ -18,4 +18,12 @@ class Priority
             self::HIGH
         ];
     }
+
+    public static function has($priority)
+    {
+      if (in_array($priority, self::getAllPriorities())) {
+        return true;
+      }
+      return false;
+    }
 }

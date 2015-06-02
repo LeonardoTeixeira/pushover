@@ -42,4 +42,10 @@ class SountTest extends \PHPUnit_Framework_TestCase
             $this->assertContains($sound, $allSounds);
         }
     }
+
+    public function testIfSoundExists()
+    {
+      $this->assertTrue(Sound::has('mechanical'));
+      $this->assertFalse(Sound::has('invalid_sound'));
+    }
 }

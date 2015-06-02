@@ -2,6 +2,8 @@
 
 namespace LeonardoTeixeira\Pushover;
 
+use LeonardoTeixeira\Pushover\Exceptions\InvalidArgumentException;
+
 class Message
 {
     private $message;
@@ -76,11 +78,17 @@ class Message
 
     public function setPriority($priority)
     {
+        if (!Priority::has($priority)) {
+          throw new InvalidArgumentException('The priority \'' . $priority . '\' is invalid.');
+        }
         $this->priority = $priority;
     }
 
     public function setSound($sound)
     {
+        if (!Sound::has($sound)) {
+          throw new InvalidArgumentException('The sound \'' . $sound . '\' is invalid.');
+        }
         $this->sound = $sound;
     }
 
