@@ -4,7 +4,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use LeonardoTeixeira\Pushover\Client;
 use LeonardoTeixeira\Pushover\Message;
-use LeonardoTeixeira\Pushover\Exceptions\PushoverException;
 
 $client = new Client('YOUR_USER_CODE_HERE', 'YOUR_TOKEN_HERE');
 
@@ -16,6 +15,6 @@ $message = new Message('Your message here.');
 try {
     $client->push($message);
     echo 'The message has been pushed!', PHP_EOL;
-} catch (PushoverException $e) {
+} catch (\Exception $e) {
     echo 'ERROR: ', $e->getMessage(), PHP_EOL;
 }
