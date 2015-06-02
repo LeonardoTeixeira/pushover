@@ -17,7 +17,7 @@ Use the [Composer](https://getcomposer.org/) to install.
 ```json
 {
 	"require": {
-		"leonardoteixeira/pushover": "dev-master"
+		"leonardoteixeira/pushover": "1.*"
 	}
 }
 ```
