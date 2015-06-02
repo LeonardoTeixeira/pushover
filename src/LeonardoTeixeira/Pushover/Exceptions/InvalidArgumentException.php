@@ -2,6 +2,6 @@
 
 namespace LeonardoTeixeira\Pushover\Exceptions;
 
-class InvalidArgumentException extends \InvalidArgumentException
+class InvalidArgumentException extends PushoverException
 {
 }
