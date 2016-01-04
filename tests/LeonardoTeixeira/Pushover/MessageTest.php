@@ -11,20 +11,22 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->messages = [
             [
                 'title' => 'Example Message 1',
-                'message' => 'Example content message 1.',
+                'message' => 'Example content message <b>1</b>.',
                 'url' => 'http://www.google.com/',
                 'url_title' => 'Google',
                 'priority' => - 2,
                 'sound' => 'classical',
+                'html' => 1,
                 'date' => '2014-08-14'
             ],
             [
                 'title' => 'Example Message 2',
-                'message' => 'Example content message 2.',
+                'message' => 'Example content message <b>2</b>.',
                 'url' => 'https://github.com/',
                 'url_title' => 'Github',
                 'priority' => 1,
                 'sound' => 'spacealarm',
+                'html' => 0,
                 'date' => '2014-08-10'
             ]
         ];
@@ -51,6 +53,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $m->setUrlTitle($message['url_title']);
             $m->setPriority($message['priority']);
             $m->setSound($message['sound']);
+            $m->setHtml($message['html']);
             $m->setDate(new \DateTime($message['date']));
 
             $this->assertEquals($message['title'], $m->getTitle());
@@ -59,6 +62,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($message['url_title'], $m->getUrlTitle());
             $this->assertEquals($message['priority'], $m->getPriority());
             $this->assertEquals($message['sound'], $m->getSound());
+            $this->assertEquals($message['html'], $m->getHtml());
             $this->assertEquals($message['date'], $m->getDate()
                 ->format('Y-m-d'));
         }
@@ -76,6 +80,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($m->hasUrl());
             $this->assertFalse($m->hasUrlTitle());
             $this->assertFalse($m->hasSound());
+            $this->assertFalse($m->hasHtml());
             $this->assertFalse($m->hasDate());
         }
 
@@ -88,12 +93,14 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $m->setUrlTitle($message['url_title']);
             $m->setPriority($message['priority']);
             $m->setSound($message['sound']);
+            $m->setHtml($message['html']);
             $m->setDate(new \DateTime($message['date']));
 
             $this->assertTrue($m->hasTitle());
             $this->assertTrue($m->hasUrl());
             $this->assertTrue($m->hasUrlTitle());
             $this->assertTrue($m->hasSound());
+            $this->assertTrue($m->hasHtml());
             $this->assertTrue($m->hasDate());
         }
     }

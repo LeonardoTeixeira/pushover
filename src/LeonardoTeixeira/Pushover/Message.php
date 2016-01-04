@@ -12,6 +12,7 @@ class Message
     private $urlTitle;
     private $priority;
     private $sound;
+    private $html;
     private $date;
 
     public function __construct($message = null, $title = null, $priority = Priority::NORMAL)
@@ -49,6 +50,11 @@ class Message
     public function getSound()
     {
         return $this->sound;
+    }
+    
+    public function getHtml()
+    {
+        return $this->html;
     }
 
     public function getDate()
@@ -91,6 +97,14 @@ class Message
         }
         $this->sound = $sound;
     }
+    
+    public function setHtml($html)
+    {
+        if ($html)
+            $this->html = 1;
+        else
+            $this->html = 0;
+    }
 
     public function setDate(\DateTime $date)
     {
@@ -115,6 +129,11 @@ class Message
     public function hasSound()
     {
         return !is_null($this->sound);
+    }
+    
+    public function hasHtml()
+    {
+        return !is_null($this->html);
     }
 
     public function hasDate()
