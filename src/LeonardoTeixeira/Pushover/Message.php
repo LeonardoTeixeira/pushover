@@ -51,7 +51,7 @@ class Message
     {
         return $this->sound;
     }
-    
+
     public function getHtml()
     {
         return $this->html;
@@ -97,7 +97,7 @@ class Message
         }
         $this->sound = $sound;
     }
-    
+
     public function setHtml($html)
     {
         if ($html)
@@ -130,7 +130,7 @@ class Message
     {
         return !is_null($this->sound);
     }
-    
+
     public function hasHtml()
     {
         return !is_null($this->html);

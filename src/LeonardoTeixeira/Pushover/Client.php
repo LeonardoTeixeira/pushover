@@ -74,7 +74,7 @@ class Client
         if ($message->hasSound()) {
             $postData['sound'] = $message->getSound();
         }
-        
+
         if ($message->hasHtml()) {
             $postData['html'] = $message->getHtml();
         }
