@@ -118,10 +118,10 @@ class Client
                 }
             }
       
-            if(isset($responseJson->request)) {
-               return new Receipt($responseJson->request);
+            if(isset($responseJson->receipt)) {
+               return new Receipt($responseJson->receipt);
             }
-            return new Receipt();        
+            return new Receipt();
         } catch (\Exception $e) {
             throw new PushoverException($e->getMessage());
         }
