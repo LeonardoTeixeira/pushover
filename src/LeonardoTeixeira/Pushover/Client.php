@@ -117,8 +117,41 @@ class Client
                     throw new PushoverException('Unable to access the Pushover API.');
                 }
             }
+      
+            if(isset($responseJson->receipt)) {
+               return new Receipt($responseJson->receipt);
+            }
+            return new Receipt();
         } catch (\Exception $e) {
             throw new PushoverException($e->getMessage());
         }
     }
+
+    public function poll(Receipt $receipt)
+    {
+        if (! $receipt instanceof Receipt ) {
+            throw new PushoverException('The parameter \'$receipt\' must be a Receipt instance.');
+        }
+
+        $getData = [
+            'token' => $this->token,
+        ];
+
+        try {
+            $request = Requests::get(self::API_RECEIPTS_URL.'/'.$receipt->getReceipt().'json?token='.$this->token, []);
+            $responseJson = json_decode($request->body, true);
+
+            if (!isset($responseJson['status']) || $responseJson['status'] != 1) {
+                if (isset($responseJson['errors'])) {
+                    throw new PushoverException($responseJson['errors'][0]);
+                } else {
+                    throw new PushoverException('Unable to access the Pushover API.');
+                }
+            }
+            return = new Status($responseJson);
+
+        } catch (\Exception $e) {
+            throw new PushoverException($e->getMessage());
+        }
+    }    
 }
