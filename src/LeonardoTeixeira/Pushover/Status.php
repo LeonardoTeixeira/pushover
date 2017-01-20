@@ -141,6 +141,56 @@ class Status
     
     public function getCalledBackAt()
     {
-        return $this->status[self::CALLED_BACK];
+        return $this->status[self::CALLED_BACK_AT];
     } 
+    
+    public function hasStatus() 
+    {
+        return !is_null($this->status[self::STATUS]);
+    }
+ 
+    public function hasAcknowledged()
+    {
+        return !is_null($this->status[self::ACKNOWLEDGED]);
+    }  
+      
+    public function hasAcknowledgedAt()
+    {
+        return !is_null($this->status[self::ACKNOWLEDGED_AT]);
+    }  
+    
+    public function hasAcknowledgedBy()
+    {
+        return !is_null($this->status[self::ACKNOWLEDGED_BY]);
+    }  
+       
+    public function hasAcknowledgedByDevice()
+    {
+        return !is_null($this->status[self::ACKNOWLEDGED_BY_DEVICE]);
+    }  
+           
+    public function hasLastDeliveredAt()
+    {
+        return !is_null($this->status[self::LAST_DELIVERED_AT]);
+    }  
+            
+    public function hasExpired()
+    {
+        return !is_null($this->status[self::EXPIRED]);
+    } 
+    
+    public function hasExpiredAt()
+    {
+        return !is_null($this->status[self::EXPIRED_AT]);
+    }     
+
+    public function hasCalledBack()
+    {
+        return !is_null($this->status[self::CALLED_BACK]);
+    }  
+    
+    public function hasCalledBackAt()
+    {
+        return !is_null($this->status[self::CALLED_BACK_AT]);
+    }     
 }
