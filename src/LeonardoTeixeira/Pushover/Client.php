@@ -117,6 +117,11 @@ class Client
                     throw new PushoverException('Unable to access the Pushover API.');
                 }
             }
+      
+            if(isset($responseJson->request)) {
+               return new Receipt($responseJson->request);
+            }
+            return new Receipt();        
         } catch (\Exception $e) {
             throw new PushoverException($e->getMessage());
         }
