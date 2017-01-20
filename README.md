@@ -72,6 +72,8 @@ use LeonardoTeixeira\Pushover\Message;
 use LeonardoTeixeira\Pushover\Priority;
 use LeonardoTeixeira\Pushover\Sound;
 use LeonardoTeixeira\Pushover\Exceptions\PushoverException;
+use LeonardoTeixeira\Pushover\Receipt;
+use LeonardoTeixeira\Pushover\Status;
 
 $client = new Client('YOUR_USER_CODE_HERE', 'YOUR_TOKEN_HERE');
 
@@ -86,8 +88,9 @@ $message->setHtml(true);
 $message->setDate(new \DateTime());
 
 try {
-    $client->push($message);
+    $receipt = $client->push($message);
     echo 'The message has been pushed!', PHP_EOL;
+    $stauts = $client->poll($receipt);
 } catch (PushoverException $e) {
     echo 'ERROR: ', $e->getMessage(), PHP_EOL;
 }
@@ -104,6 +107,8 @@ $message->setRetry(60);
 $message->setExpire(10800);
 $message->setCallback('http://callback-url.com/');
 ```
+
+You can poll the notification status using `poll`.
 
 ## Running the tests
 
