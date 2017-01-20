@@ -93,6 +93,18 @@ try {
 }
 ```
 
+### Emergency Priority
+For the emergency priority you must provide the parameters `retry` and `expire`. The `callback` parameter is optional.
+
+[More information](https://pushover.net/api#priority)
+
+```php
+$message->setPriority(Priority::EMERGENCY);
+$message->setRetry(60);
+$message->setExpire(10800);
+$message->setCallback('http://callback-url.com/');
+```
+
 ## Running the tests
 
 ```

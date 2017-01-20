@@ -11,6 +11,9 @@ class Message
     private $url;
     private $urlTitle;
     private $priority;
+    private $retry;
+    private $expire;
+    private $callback;
     private $sound;
     private $html;
     private $date;
@@ -45,6 +48,21 @@ class Message
     public function getPriority()
     {
         return $this->priority;
+    }
+
+    public function getRetry()
+    {
+        return $this->retry;
+    }
+
+    public function getExpire()
+    {
+        return $this->expire;
+    }
+
+    public function getCallback()
+    {
+        return $this->callback;
     }
 
     public function getSound()
@@ -90,6 +108,21 @@ class Message
         $this->priority = $priority;
     }
 
+    public function setRetry($retry)
+    {
+        $this->retry = $retry;
+    }
+
+    public function setExpire($expire)
+    {
+        $this->expire = $expire;
+    }
+
+    public function setCallback($callback)
+    {
+        $this->callback = $callback;
+    }
+
     public function setSound($sound)
     {
         if (!Sound::has($sound)) {
@@ -124,6 +157,21 @@ class Message
     public function hasUrlTitle()
     {
         return !is_null($this->urlTitle);
+    }
+
+    public function hasRetry()
+    {
+        return !is_null($this->retry);
+    }
+
+    public function hasExpire()
+    {
+        return !is_null($this->expire);
+    }
+
+    public function hasCallback()
+    {
+        return !is_null($this->callback);
     }
 
     public function hasSound()

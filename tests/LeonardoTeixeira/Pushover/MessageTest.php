@@ -26,8 +26,21 @@ class MessageTest extends \PHPUnit_Framework_TestCase
                 'url_title' => 'Github',
                 'priority' => 1,
                 'sound' => 'spacealarm',
-                'html' => 0,
+                'html' => 1,
                 'date' => '2014-08-10'
+            ],
+            [
+                'title' => 'Example Message 3',
+                'message' => 'Example content message <b>3</b>.',
+                'url' => 'https://slack.com/',
+                'url_title' => 'Slack',
+                'priority' => 2,
+                'sound' => 'mechanical',
+                'html' => 1,
+                'date' => '2017-01-19',
+                'retry' => 30,
+                'expire' => 7200,
+                'callback' => 'http://localhost'
             ]
         ];
     }
@@ -55,6 +68,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $m->setSound($message['sound']);
             $m->setHtml($message['html']);
             $m->setDate(new \DateTime($message['date']));
+            if ($message['priority'] == 2) {
+                $m->setRetry($message['retry']);
+                $m->setExpire($message['expire']);
+                $m->setCallback($message['callback']);
+            }
 
             $this->assertEquals($message['title'], $m->getTitle());
             $this->assertEquals($message['message'], $m->getMessage());
@@ -65,6 +83,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($message['html'], $m->getHtml());
             $this->assertEquals($message['date'], $m->getDate()
                 ->format('Y-m-d'));
+            if ($message['priority'] == 2) {
+                $this->assertEquals($message['retry'], $m->getRetry());
+                $this->assertEquals($message['expire'], $m->getExpire());
+                $this->assertEquals($message['callback'], $m->getCallback());
+            }
         }
     }
 
@@ -79,6 +102,9 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($m->hasTitle());
             $this->assertFalse($m->hasUrl());
             $this->assertFalse($m->hasUrlTitle());
+            $this->assertFalse($m->hasRetry());
+            $this->assertFalse($m->hasExpire());
+            $this->assertFalse($m->hasCallback());
             $this->assertFalse($m->hasSound());
             $this->assertFalse($m->hasHtml());
             $this->assertFalse($m->hasDate());
@@ -95,6 +121,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $m->setSound($message['sound']);
             $m->setHtml($message['html']);
             $m->setDate(new \DateTime($message['date']));
+            if ($message['priority'] == 2) {
+                $m->setRetry($message['retry']);
+                $m->setExpire($message['expire']);
+                $m->setCallback($message['callback']);
+            }
 
             $this->assertTrue($m->hasTitle());
             $this->assertTrue($m->hasUrl());
@@ -102,6 +133,16 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($m->hasSound());
             $this->assertTrue($m->hasHtml());
             $this->assertTrue($m->hasDate());
+
+            if ($message['priority'] == 2) {
+                $this->assertTrue($m->hasRetry());
+                $this->assertTrue($m->hasExpire());
+                $this->assertTrue($m->hasCallback());
+            } else {
+                $this->assertFalse($m->hasRetry());
+                $this->assertFalse($m->hasExpire());
+                $this->assertFalse($m->hasCallback());
+            }
         }
     }
 

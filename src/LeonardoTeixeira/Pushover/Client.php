@@ -47,6 +47,16 @@ class Client
         if ($message->getMessage() == null) {
             throw new PushoverException('The message content was not set.');
         }
+        
+        if ($message->getPriority() == Priority::EMERGENCY) {
+            if (!$message->hasRetry()) {
+                throw new PushoverException('The emergency priority must have the \'retry\' parameter.');
+            }
+
+            if (!$message->hasExpire()) {
+                throw new PushoverException('The emergency priority must have the \'expire\' parameter.');
+            }
+        }
 
         $postData = [
             'user' => $this->user,
@@ -69,6 +79,20 @@ class Client
 
         if ($message->hasUrlTitle()) {
             $postData['url_title'] = $message->getUrlTitle();
+        }
+
+        if ($message->getPriority() == Priority::EMERGENCY) {
+            if ($message->hasRetry()) {
+                $postData['retry'] = $message->getRetry();
+            }
+
+            if ($message->hasExpire()) {
+                $postData['expire'] = $message->getExpire();
+            }
+
+            if ($message->hasCallback()) {
+                $postData['callback'] = $message->getCallback();
+            }
         }
 
         if ($message->hasSound()) {

@@ -8,6 +8,7 @@ class Priority
     const LOW = - 1;
     const NORMAL = 0;
     const HIGH = 1;
+    const EMERGENCY = 2;
 
     public static function getAllPriorities()
     {
@@ -15,7 +16,8 @@ class Priority
             self::LOWEST,
             self::LOW,
             self::NORMAL,
-            self::HIGH
+            self::HIGH,
+            self::EMERGENCY
         ];
     }
 
