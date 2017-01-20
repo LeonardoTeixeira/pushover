@@ -90,7 +90,7 @@ $message->setDate(new \DateTime());
 try {
     $receipt = $client->push($message);
     echo 'The message has been pushed!', PHP_EOL;
-    $stauts = $client->poll($receipt);
+    $status = $client->poll($receipt);
 } catch (PushoverException $e) {
     echo 'ERROR: ', $e->getMessage(), PHP_EOL;
 }
