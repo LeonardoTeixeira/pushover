@@ -11,6 +11,7 @@ class Client
     private $token;
 
     const API_MESSAGE_URL = 'https://api.pushover.net/1/messages.json';
+    const API_RECEIPTS_URL = 'https://api.pushover.net/1/receipts';
 
     public function __construct($user = null, $token = null)
     {
@@ -47,7 +48,7 @@ class Client
         if ($message->getMessage() == null) {
             throw new PushoverException('The message content was not set.');
         }
-        
+
         if ($message->getPriority() == Priority::EMERGENCY) {
             if (!$message->hasRetry()) {
                 throw new PushoverException('The emergency priority must have the \'retry\' parameter.');
@@ -117,11 +118,11 @@ class Client
                     throw new PushoverException('Unable to access the Pushover API.');
                 }
             }
-      
             if(isset($responseJson->receipt)) {
-               return new Receipt($responseJson->receipt);
+                return new Receipt($responseJson->receipt);
             }
             return new Receipt();
+
         } catch (\Exception $e) {
             throw new PushoverException($e->getMessage());
         }
@@ -132,15 +133,19 @@ class Client
         if (! $receipt instanceof Receipt ) {
             throw new PushoverException('The parameter \'$receipt\' must be a Receipt instance.');
         }
+        
+        if(is_null($receipt->getReceipt())) {
+            throw new PushoverException('The receipt content was not set.');            
+        }
 
         $getData = [
             'token' => $this->token,
         ];
 
         try {
-            $request = Requests::get(self::API_RECEIPTS_URL.'/'.$receipt->getReceipt().'json?token='.$this->token, []);
+            $request = Requests::get(self::API_RECEIPTS_URL.'/'.$receipt->getReceipt().'.json?token='.$this->token, []);
             $responseJson = json_decode($request->body, true);
-
+            
             if (!isset($responseJson['status']) || $responseJson['status'] != 1) {
                 if (isset($responseJson['errors'])) {
                     throw new PushoverException($responseJson['errors'][0]);
@@ -148,10 +153,10 @@ class Client
                     throw new PushoverException('Unable to access the Pushover API.');
                 }
             }
-            return = new Status($responseJson);
+            return new Status($responseJson);
 
         } catch (\Exception $e) {
             throw new PushoverException($e->getMessage());
         }
-    }    
+    }
 }
