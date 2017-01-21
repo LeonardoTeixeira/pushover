@@ -25,7 +25,7 @@
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/LeonardoTeixeira/pushover.git"
+      "url": "https://github.com/nuccleon/pushover.git"
     }
   ],
   "require": {
