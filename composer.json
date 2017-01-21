@@ -1,5 +1,5 @@
 {
-  "name": "leonardoteixeira/pushover",
+  "name": "nuccleon/pushover",
   "description": "A simple PHP library for the Pushover service",
   "keywords": [
     "pushover",
