@@ -13,7 +13,7 @@ class Status
     const ACKNOWLEDGED_BY_DEVICE = 'acknowledged_by_device';
     const LAST_DELIVERED_AT = 'last_delivered_at';
     const EXPIRED = 'expired';
-    const EXPIRED_AT = 'expired_at';
+    const EXPIRED_AT = 'expires_at';
     const CALLED_BACK = 'called_back';
     const CALLED_BACK_AT = 'called_back_at';
     
