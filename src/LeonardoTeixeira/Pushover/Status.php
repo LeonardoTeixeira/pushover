@@ -6,7 +6,6 @@ use LeonardoTeixeira\Pushover\Exceptions\InvalidArgumentException;
 
 class Status
 {
-    const STATUS = 'status';
     const ACKNOWLEDGED = 'acknowledged';
     const ACKNOWLEDGED_AT = 'acknowledged_at';
     const ACKNOWLEDGED_BY = 'acknowledged_by';
@@ -18,7 +17,6 @@ class Status
     const CALLED_BACK_AT = 'called_back_at';
     
     private $status = [
-            self::STATUS => null,
             self::ACKNOWLEDGED => null,
             self::ACKNOWLEDGED_AT => null,
             self::ACKNOWLEDGED_BY => null,
@@ -42,11 +40,6 @@ class Status
                 }
             }
         }
-    }
-
-    public function setStatus($value) 
-    {
-        $this->status[self::STATUS] = $value;
     }
  
     public function setAcknowledged($value)
@@ -93,11 +86,6 @@ class Status
     {
         $this->status[self::CALLED_BACK_AT] = $value;
     }  
-
-    public function getStatus() 
-    {
-        return $this->status[self::STATUS];
-    }
  
     public function getAcknowledged()
     {
@@ -143,11 +131,6 @@ class Status
     {
         return $this->status[self::CALLED_BACK_AT];
     } 
-    
-    public function hasStatus() 
-    {
-        return !is_null($this->status[self::STATUS]);
-    }
  
     public function hasAcknowledged()
     {
