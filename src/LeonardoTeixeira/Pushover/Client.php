@@ -138,10 +138,6 @@ class Client
             throw new PushoverException('The receipt content was not set.');            
         }
 
-        $getData = [
-            'token' => $this->token,
-        ];
-
         try {
             $request = Requests::get(self::API_RECEIPTS_URL.'/'.$receipt->getReceipt().'.json?token='.$this->token, []);
             $responseJson = json_decode($request->body, true);
@@ -159,4 +155,29 @@ class Client
             throw new PushoverException($e->getMessage());
         }
     }
+    public function cancel(Receipt $receipt)
+    {
+        if (! $receipt instanceof Receipt ) {
+            throw new PushoverException('The parameter \'$receipt\' must be a Receipt instance.');
+        }
+        
+        if(is_null($receipt->getReceipt())) {
+            throw new PushoverException('The receipt content was not set.');            
+        }
+
+        try {
+            $request = Requests::post(self::API_RECEIPTS_URL.'/'.$receipt->getReceipt().'/cancel.json', [], ['token' => $this->token]);
+            $responseJson = json_decode($request->body, true);
+                        
+            if (!isset($responseJson['status']) || $responseJson['status'] != 1) {
+                if (isset($responseJson['errors'])) {
+                    throw new PushoverException($responseJson['errors'][0]);
+                } else {
+                    throw new PushoverException('Unable to access the Pushover API.');
+                }
+            }
+        } catch (\Exception $e) {
+            throw new PushoverException($e->getMessage());
+        }        
+    }        
 }
