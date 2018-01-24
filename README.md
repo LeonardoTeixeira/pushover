@@ -81,6 +81,7 @@ $message = new Message();
 $message->setMessage('Your messsage <b>here</b>.');
 $message->setTitle('Title here');
 $message->setUrl('http://www.example.com/');
+$message->setAttachment('pic.jpg');
 $message->setUrlTitle('Click me!');
 $message->setPriority(Priority::HIGH);
 $message->setSound(Sound::SIREN);
