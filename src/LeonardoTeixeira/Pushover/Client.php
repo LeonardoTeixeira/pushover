@@ -4,6 +4,7 @@ namespace LeonardoTeixeira\Pushover;
 
 use LeonardoTeixeira\Pushover\Exceptions\PushoverException;
 use Requests;
+use Requests_Hooks;
 
 class Client
 {
@@ -103,12 +104,28 @@ class Client
         if ($message->hasHtml()) {
             $postData['html'] = $message->getHtml();
         }
-
+		
         if ($message->hasDate()) {
             $postData['timestamp'] = $message->getDate()->getTimestamp();
         }
+
+		if ($message->hasAttachment()) {
+			$postData['attachment'] = new \CURLFile(realpath($message->getAttachment()));
+		}
+
         try {
-            $request = Requests::post(self::API_MESSAGE_URL, [], $postData);
+			// Using hooks is an ugly hack since we bypass the fancy request API
+			// Up to no, Requests doesn't support multi-part headers :-/
+			//
+			// Should we switch to guzzle/guzzle ?
+			$hooks = new Requests_Hooks();
+			$hooks->register('curl.before_send', function($fp) use ($postData) {
+				curl_setopt($fp, CURLOPT_POSTFIELDS, $postData);
+				$postData = [];
+            });
+            $hooks = ['hooks' => $hooks];
+					
+            $request = Requests::post(self::API_MESSAGE_URL, [], $postData, $hooks);
             $responseJson = json_decode($request->body);
 
             if (!isset($responseJson->status) || $responseJson->status != 1) {
