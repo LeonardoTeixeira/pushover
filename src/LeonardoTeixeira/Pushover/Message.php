@@ -17,7 +17,8 @@ class Message
     private $sound;
     private $html;
     private $date;
-
+	private $attachment;
+	
     public function __construct($message = null, $title = null, $priority = Priority::NORMAL)
     {
         $this->message = $message;
@@ -80,6 +81,11 @@ class Message
         return $this->date;
     }
 
+	public function getAttachment()
+	{
+		return $this->attachment;
+	}
+	
     public function setMessage($message)
     {
         $this->message = $message;
@@ -144,6 +150,11 @@ class Message
         $this->date = $date;
     }
 
+	public function setAttachment($attachment)
+	{
+		$this->attachment = $attachment;
+	}
+	
     public function hasTitle()
     {
         return !is_null($this->title);
@@ -188,4 +199,9 @@ class Message
     {
         return ($this->date instanceof \DateTime);
     }
+	
+	public function hasAttachment()
+	{
+		return file_exists($this->attachment);
+	}
 }
