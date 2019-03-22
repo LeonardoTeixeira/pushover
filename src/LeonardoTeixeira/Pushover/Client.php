@@ -12,6 +12,7 @@ class Client
     private $token;
 
     const API_MESSAGE_URL = 'https://api.pushover.net/1/messages.json';
+    const API_GLANCES_URL = 'https://api.pushover.net/1/glances.json';
     const API_RECEIPTS_URL = 'https://api.pushover.net/1/receipts';
 
     public function __construct($user = null, $token = null)
@@ -196,5 +197,73 @@ class Client
         } catch (\Exception $e) {
             throw new PushoverException($e->getMessage());
         }        
-    }        
+    }
+    
+    
+    public function pushGlance(Glances $glances, $device = null)
+    {
+        if (!$glances->hasTitle() && !$glances->hasText() && !$glances->hasSubtext() && !$glances->hasCount() && !$glances->hasPercent()) {
+            throw new PushoverException('The parameter \'$glances\' must have at least one parameter');
+        }
+
+        $postData = [
+            'user' => $this->user,
+            'token' => $this->token
+        ];
+
+        if ($device != null) {
+            $postData['device'] = $device;
+        }
+
+        if ($glances->hasTitle()) {
+            $postData['title'] = $glances->getTitle();
+        }
+
+        if ($glances->hasText()) {
+            $postData['text'] = $glances->getText();
+        }
+
+        if ($glances->hasSubtext()) {
+            $postData['subtext'] = $glances->getSubtext();
+        }
+
+        if ($glances->hasCount()) {
+            $postData['count'] = $glances->getCount();
+        }
+
+        if ($glances->hasPercent()) {
+            $postData['percent'] = $glances->getPercent();
+        }
+
+        try {
+         // Using hooks is an ugly hack since we bypass the fancy request API
+         // Up to no, Requests doesn't support multi-part headers :-/
+         //
+         // Should we switch to guzzle/guzzle ?
+         $hooks = new Requests_Hooks();
+         $hooks->register('curl.before_send', function($fp) use ($postData) {
+         curl_setopt($fp, CURLOPT_POSTFIELDS, $postData);
+         $postData = [];
+            });
+            $hooks = ['hooks' => $hooks];
+
+            $request = Requests::post(self::API_GLANCES_URL, [], $postData, $hooks);
+            $responseJson = json_decode($request->body);
+
+            if (!isset($responseJson->status) || $responseJson->status != 1) {
+                if (isset($responseJson->errors)) {
+                    throw new PushoverException($responseJson->errors[0]);
+                } else {
+                    throw new PushoverException('Unable to access the Pushover API.');
+                }
+            }
+            if(isset($responseJson->receipt)) {
+                return new Receipt($responseJson->receipt);
+            }
+            return new Receipt();
+
+        } catch (\Exception $e) {
+            throw new PushoverException($e->getMessage());
+        }
+    }
 }
