@@ -40,6 +40,7 @@ require 'vendor/autoload.php';
 
 use LeonardoTeixeira\Pushover\Client;
 use LeonardoTeixeira\Pushover\Message;
+use LeonardoTeixeira\Pushover\Glances;
 use LeonardoTeixeira\Pushover\Exceptions\PushoverException;
 
 $client = new Client('YOUR_USER_CODE_HERE', 'YOUR_TOKEN_HERE');
@@ -49,6 +50,17 @@ $message = new Message('Your message here.');
 try {
     $client->push($message);
     echo 'The message has been pushed!', PHP_EOL;
+} catch (PushoverException $e) {
+    echo 'ERROR: ', $e->getMessage(), PHP_EOL;
+}
+
+$glances = new Glances();
+
+$glances.setPercent(50); // Update percent field
+
+try {
+    $client->updateGlances($glances);
+    echo 'Glances has been updated!', PHP_EOL;
 } catch (PushoverException $e) {
     echo 'ERROR: ', $e->getMessage(), PHP_EOL;
 }
@@ -69,6 +81,7 @@ date_default_timezone_set('UTC');
 
 use LeonardoTeixeira\Pushover\Client;
 use LeonardoTeixeira\Pushover\Message;
+use LeonardoTeixeira\Pushover\Glances;
 use LeonardoTeixeira\Pushover\Priority;
 use LeonardoTeixeira\Pushover\Sound;
 use LeonardoTeixeira\Pushover\Exceptions\PushoverException;
@@ -91,6 +104,20 @@ $message->setDate(new \DateTime());
 try {
     $receipt = $client->push($message);
     echo 'The message has been pushed!', PHP_EOL;
+    $status = $client->poll($receipt);
+} catch (PushoverException $e) {
+    echo 'ERROR: ', $e->getMessage(), PHP_EOL;
+}
+$glances = new Glances();
+$glances->setTitle('Title here');
+$glances->setText('Text here');
+$glances->setSubtext('Subtext here');
+$glances->setCount(123);
+$glances->setPercent(100);
+
+try {
+    $receipt = $client->updateGlances($glances);
+    echo 'Glances has been updated!', PHP_EOL;
     $status = $client->poll($receipt);
 } catch (PushoverException $e) {
     echo 'ERROR: ', $e->getMessage(), PHP_EOL;
